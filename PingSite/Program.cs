@@ -36,14 +36,12 @@ namespace PingSite
             //});
 
             //PLINQ
-           var t = from site in sites.AsParallel()
-                   select site;
-            t.ForAll(x =>
+            sites.AsParallel().ForAll(x =>
             {
                 var s = DoPing(x);
-                Console.WriteLine(s.Address + ": " + s.RoundtripTime + ": " + s.Status);
-            }); 
-                   
+                Console.WriteLine(s.Address + ": " + s.RoundtripTime + "ms : " + s.Status);
+            });
+
         }
 
         static private PingReply DoPing(string site)
